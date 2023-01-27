@@ -15,7 +15,7 @@ The challenge was to deliver data from a diverse pool of sources to a Data scien
 
 ## Architecture Overview
 
-![Alt text](Diagrams\Architecture.png "Solution architecture")
+![Alt text](Diagrams/Architecture.png?raw=true "Solution architecture")
 
 This is the Diagram of the proposed solution.
 We can make out 4 different areas.
