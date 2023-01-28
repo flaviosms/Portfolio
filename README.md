@@ -61,6 +61,14 @@ Other Visualization tools could be used as well such as Superset which can be ho
 
 ## Getting transformations to Production
 
-Once the transformations are tried and tested in development, the data engineering team can translate the treatment to a sparkstreaming process to allow for near real time Dashboards and predictions.
+Once the transformations are tried and tested in development, the data engineering team can translate the treatment to spark, if needed, and setup sparkstreaming process to allow for near real time Dashboards and predictions.
+
+In some cases batch transformations for monthly reports are enough and the consumer teams can have the autonomy to set up Redshift's query execution scheduler. Or configure a process to run in Airflow.
+
+## AI Models
+
+If the Ai model uses execution time predictions it is sugested in the diagram to use DynamoDB as a storage as well as indexing by transport unit id for example so that it is optmized for these transactional operations and allow for a API to have a great latency for the applications.
+
+If it is not the case above and the predictions need to occur as the data flows into the system the same way as we called the Weather API we can call a AI API using UDF that can be hosted in ECS for example.
 
 
