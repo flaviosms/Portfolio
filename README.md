@@ -65,10 +65,29 @@ Once the transformations are tried and tested in development, the data engineeri
 
 In some cases batch transformations for monthly reports are enough and the consumer teams can have the autonomy to set up Redshift's query execution scheduler. Or configure a process to run in Airflow.
 
+### Alternatives:
+
+A Alternative for the data transformations processes in a near real time setting would be using Apache Flink, its a technology that is seeing more and more use, it allows for statefull processing, 
+
 ## AI Models
 
 If the Ai model uses execution time predictions it is sugested in the diagram to use DynamoDB as a storage as well as indexing by transport unit id for example so that it is optmized for these transactional operations and allow for a API to have a great latency for the applications.
 
 If it is not the case above and the predictions need to occur as the data flows into the system the same way as we called the Weather API we can call a AI API using UDF that can be hosted in ECS for example.
+
+# Deployment and test
+
+To test our solution locally, we first need to setup a test kubernetes enviroment, in my case I used Minikube. If you prefer you can use a test enviroment in AWS for example.
+
+Make sure you have:
+A Kubernetes cluster
+kubectl
+docker
+helm
+
+After that we need to get our inputs deployed, for simplicity I used bitnami's Postgres and Strimzi's Kafka using helm to deploy our sources.
+Under Deploys/databases we have the create table and some inserts to our description and performance data.
+
+
 
 
