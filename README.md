@@ -93,14 +93,14 @@ After that we need to get our inputs deployed, for simplicity I used bitnami's P
 Under Deploys/databases we have the create table and some inserts to our description and performance data.
 
 The test is still being developed locally, the current status is:
-strimzi kafka is up
-postgresql is up
-spark-operator is up
+- strimzi kafka is up
+- postgresql is up
+- spark-operator is up
 
 Missing:
-A s3 alternative (local hdfs maybe)
-Debezium configured
-sparkstreaming process developed
+- A s3 alternative (local hdfs maybe)
+- Debezium configured
+- sparkstreaming process developed
 
 
 
