@@ -22,12 +22,12 @@ We can make out 4 different sections.
 - Inputs: the Data inputs for our system.
 - Extraction and loading: All structures that get the inputs and store them on our storage system.
 - Development: Its the development enviroment and tools proposed to be used in structuring new solutions that use our data.
-- Near Real Time Pipelines: Here we have our production AI models or Dashboards.
+- Near Real Time Pipelines: Here we have our production AI models or Dashboards, but also the structures to process and storage the data for these consumers.
 
 ## Extraction
 
-For the extraction I'm proposing a unified approach, sending all our PostgreSQL data into Kafka as well using Debezium CDC. After all the data is in Kafka, we can use Kafka Connect's Sink connector to S3, after that we treat the data to convert it into Delta format using Spark-Streaming to maintain our data flowing near real time.
-For the Location Topic we can add the weather location data Using User Defined Functions.
+For the extraction I'm proposing a unified approach, sending all our PostgreSQL data into Kafka together with the location data using Debezium CDC. After all the data is in Kafka, we can use Kafka Connect's Sink connector to S3 and treat the data to convert it into Delta format using Spark-Streaming to maintain our data flowing near real time.
+For the Location Topic we can add the weather location data Using User Defined Functions in our spark streaming process.
 
 ### Alternatives:
 PostGreSQL:
@@ -36,7 +36,7 @@ PostGreSQL:
 
 Weather API:
 - Another possibility which could be faster would be the usage of Lambda-functions to enrich our Json files that got stored in the landing zone. Depending on the volumetry and the way that the data needs to be partitioned when sinking to S3, the lambda process can run very fast and allow for a better time in the end.
-- Attempting to make the pipeline simpler I propose the use of Spark-streaming, with UDF usage for this API call.
+- Attempting to make the pipeline simpler I proposed the use of Spark-streaming, with UDF usage for this API call.
 
 ## Development 
 
@@ -80,14 +80,27 @@ If it is not the case above and the predictions need to occur as the data flows 
 To test our solution locally, we first need to setup a test kubernetes enviroment, in my case I used Minikube. If you prefer you can use a test enviroment in AWS for example.
 
 Make sure you have:
-A Kubernetes cluster
-kubectl
-docker
-helm
+
+- A Kubernetes cluster
+
+- kubectl
+
+- docker
+
+- helm
 
 After that we need to get our inputs deployed, for simplicity I used bitnami's Postgres and Strimzi's Kafka using helm to deploy our sources.
 Under Deploys/databases we have the create table and some inserts to our description and performance data.
 
+The test is still being developed locally, the current status is:
+strimzi kafka is up
+postgresql is up
+spark-operator is up
+
+Missing:
+A s3 alternative (local hdfs maybe)
+Debezium configured
+sparkstreaming process developed
 
 
 
